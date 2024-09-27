@@ -3,6 +3,7 @@ import { Button, Card } from "react-bootstrap";
 
 export default function Candidato(props) {
     const [curtidas, setCurtidas] = useState(props.candidato.curtidas);
+    const [descurtidas, setDesCurtidas] = useState(props.candidato.descurtidas);
 
     function showProposals(proposta) {
         props.setProposta(proposta);
@@ -11,9 +12,12 @@ export default function Candidato(props) {
 
     const handleCurtir = () => {
         setCurtidas(curtidas + 1);
+        if(descurtidas>0)
+            setDesCurtidas(descurtidas - 1);
     };
 
     const handleNaoCurtir = () => {
+        setDesCurtidas(descurtidas + 1);
         if (curtidas > 0) {
             setCurtidas(curtidas - 1);
         }
@@ -27,6 +31,7 @@ export default function Candidato(props) {
                 <Card.Text>
                     <p>{"Email: " + props.candidato.email}</p>
                     <p>{"Curtidas: " + curtidas}</p>
+                    <p>{"Descurtidas: " + descurtidas}</p>
                     <p>{"Questionamentos: " + props.candidato.questionamentos.length}</p>
                 </Card.Text>
                 <Button onClick={handleCurtir} variant="primary">
